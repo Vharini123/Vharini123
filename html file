@@ -1,0 +1,40 @@
+// Import web3.js library
+const Web3 = require('web3');
+
+// Initialize web3 instance with your provider (MetaMask or Trust Wallet)
+const web3 = new Web3(window.ethereum);
+
+// Define your NFT contract ABI (Application Binary Interface)
+const nftContractABI = [
+  // Define your contract's functions here, such as minting
+];
+
+// Define your NFT contract address
+const nftContractAddress = '0x123...'; // Your NFT contract address
+
+// Create an instance of your NFT contract
+const nftContract = new web3.eth.Contract(nftContractABI, nftContractAddress);
+
+// Define your wallet address
+const walletAddress = '0xabc...'; // Your wallet address
+
+// Define the token URI for your NFT metadata
+const tokenURI = 'https://example.com/metadata.json'; // Your token URI
+
+// Function to mint your NFT
+async function mintNFT() {
+  try {
+    // Connect to MetaMask or Trust Wallet
+    await window.ethereum.enable();
+    
+    // Mint your NFT
+    const result = await nftContract.methods.mintNFT(walletAddress, tokenURI).send({ from: walletAddress });
+    
+    console.log('NFT minted:', result);
+  } catch (error) {
+    console.error('Error minting NFT:', error);
+  }
+}
+
+// Call the mintNFT function to mint your NFT
+mintNFT();
